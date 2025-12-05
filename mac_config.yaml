@@ -1,0 +1,52 @@
+common:
+  TS_KEY_LENGTH_MAX: 50
+  FFMPEG_COMMAND:  /Users/zcg/tools/video/ffmpeg2/ffmpeg
+  FFPROBE_COMMAND: /Users/zcg/tools/video/ffmpeg2/ffprobe
+  USER_AGENT: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+
+platform:
+  hua_ren_video_info_re: var player_aaaa={.*?}</script>
+  hai_tu_video_info_re: var player_aaaa={.*?}</script>
+
+HuaRen:
+  m3u8_from: tym3u8,1080zyk,
+#  m3u8_from_url: bfzym3u8,modum3u8,dbm3u8,lzm3u8,wjm3u8
+  m3u8_from_url: s
+
+app:
+  add_button_text: 添加
+  start_button_text: 开始下载
+  stop_button_text: 暂停下载
+  #
+  platform_label: 选择平台：
+  platform_radios: 海兔,华人
+  platform_clicked: 华人
+  platform_tips: 不同选项使用不同的下载器，所以网址和平台必须对应
+  #
+  verify_label: 验证证书：
+  verify_radios: 是,否
+  verify_clicked: 否
+  verify_tips: 选择否有被劫持风险，但是华人必须选否才可下载
+  #
+  auto_next_label: 自动下一集：
+  auto_next_radios: 是,否
+  auto_next_clicked: 否
+  auto_next_tips: 自动下载下一集
+
+  #
+  url_line_label: 输入网址：
+  url_line_placeholder: https://www.example.com/a/b
+
+  #
+  host_line_label: 网站地址：
+  host_line_placeholder: htt://www.example.com
+
+  #
+  file_label: 存放位置：
+  file_placeholder: 请选择文件夹...
+
+  #
+  max_reset: 5
+  max_ts_num: -1
+  max_thread_num: 5
+  auto_remove_ts: 1
