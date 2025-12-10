@@ -115,9 +115,9 @@ class MainWindow(QWidget):
         self.text()
 
     def text(self):
-        self.url_line.set_line_text("https://www.ece8.com/play/3887224-5-1.html")
+        self.url_line.set_line_text("https://www.ece8.com/play/33992-1-7")
         self.host_line.set_line_text("https://www.ece8.com/")
-        self.file.set_line_text("E:/project/watch/videos/dsyr")
+        self.file.set_line_text("E:/project/watch/videos/wyghx")
         self._text.format_text([])
 
     def on_start_clicked(self):

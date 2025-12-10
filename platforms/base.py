@@ -203,7 +203,7 @@ class Scheduler(VideoSpider):
         :param run_num: 运行次数
         :return:
         """
-        print("==============================================")
+        print("==============================================", self.cancel)
         if self.cancel:
             return
         html = self.get_video_html(link, run_num)
@@ -225,7 +225,8 @@ class Scheduler(VideoSpider):
         for ts_file in ts_files:
             dt.decrypt(ts_file, ts_file)
 
-        if not done or self.cancel:
+        # if not done or self.cancel:
+        if self.cancel:
             # 没下载完或者放弃了就不合并
             return
 

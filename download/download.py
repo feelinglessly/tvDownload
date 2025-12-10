@@ -93,8 +93,13 @@ class M3u8Downloader(object):
 
     def check(self):
         res = []
+        i = 1
         for future in self.futures:
             if future.cancelled():
+                continue
+            if future.exception():
+                print(f"{i}/{len(self.futures)}")
+                i+=1
                 continue
             if future.done():
                 res.append(future.result())
