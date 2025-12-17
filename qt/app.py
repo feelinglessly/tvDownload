@@ -31,6 +31,7 @@ class MainWindow(QWidget):
     file = None
     download_button = None
     add_button = None
+    clear_button = None
     start_button = None
     stop_button = None
     callback = None
@@ -55,6 +56,7 @@ class MainWindow(QWidget):
         self.setWindowTitle(self.title)
         self.setGeometry(*self.size)
         self.add_button = PushButton(conf.app.add_button_text, self.on_add_clicked, "success", "large")
+        self.clear_button = PushButton(conf.app.clear_button_text, self.on_clear_clicked, "warning", "large")
         self.start_button = PushButton(conf.app.start_button_text, self.on_start_clicked, "success", "large")
         self.stop_button = PushButton(conf.app.stop_button_text, self.on_stop_clicked, "warning", "large")
 
@@ -88,7 +90,7 @@ class MainWindow(QWidget):
         layout = QVBoxLayout(self)
         layout.addLayout(h1)
         layout.addLayout(url_line)
-        layout.addLayout(host_line)
+        # layout.addLayout(host_line)
         layout.addLayout(file)
 
         _text = SyncTextEdit(True)
@@ -96,6 +98,7 @@ class MainWindow(QWidget):
         # 按钮
         button_layout = HBoxLayout()
         button_layout.set_widgets(self.add_button)
+        button_layout.set_widgets(self.clear_button)
         button_layout.set_right_widgets(self.start_button, self.stop_button)
         # layout.addWidget(self.add_button) # 添加按钮
         # layout.addWidget(self.start_button) # 添加按钮
@@ -115,18 +118,26 @@ class MainWindow(QWidget):
         self.text()
 
     def text(self):
-        self.url_line.set_line_text("https://www.ece8.com/play/3887224-5-1.html")
-        self.host_line.set_line_text("https://www.ece8.com/")
-        self.file.set_line_text("E:/project/watch/videos/dsyr")
+        self.url_line.set_line_text("https://www.yuny.tv/videoPlayer/164382253?detailId=203174")
+        # self.host_line.set_line_text("https://www.ece8.com/")
+        self.file.set_line_text(r"E:\project\watch\videos\dxjz")
         self._text.format_text([])
 
     def on_start_clicked(self):
         get_store().reset()
         self.ctrl.reset()
+        self.start_button.unable()
+        self.add_button.unable()
+        self.clear_button.unable()
+        self.stop_button.enable()
 
     def on_stop_clicked(self):
         get_store().stop()
         self.ctrl.stop()
+        self.start_button.enable()
+        self.add_button.enable()
+        self.clear_button.enable()
+        self.stop_button.unable()
 
     def on_add_clicked(self):
         data = VideoData(
@@ -140,6 +151,9 @@ class MainWindow(QWidget):
         )
         store = get_store()
         store.push(data)
+
+    def on_clear_clicked(self):
+        get_store().clear()
 
     def close(self):
         print("xxx close")

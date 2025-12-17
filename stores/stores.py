@@ -74,6 +74,9 @@ class Store(Sync):
         self.sub()
         return data
 
+    def clear(self):
+        self._store.clear()
+        self.sub()
 
     def get(self, uuid):
         """
@@ -107,6 +110,12 @@ class Store(Sync):
         for data in self._store.values():
             data.stop()
         self.sub()
+
+    def set_nid(self, uuid, nid):
+        data = self._store[uuid]
+        data.set_nid(nid)
+        self.sub()
+        return data
 
 
 _store = Store()

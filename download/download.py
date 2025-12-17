@@ -74,9 +74,9 @@ class M3u8Downloader(object):
         if self.stop_event.is_set():
             # 提前终止
             return None
-
         with self.new_thread_pool() as pool:
             num = 1
+            self.futures = []
             for ts_name, ts_url in ts_map.items():
                 if num > self.max_ts_num > 0:
                     break
@@ -93,8 +93,13 @@ class M3u8Downloader(object):
 
     def check(self):
         res = []
+        i = 1
         for future in self.futures:
             if future.cancelled():
+                continue
+            if future.exception():
+                print(f"{i}/{len(self.futures)}")
+                i+=1
                 continue
             if future.done():
                 res.append(future.result())

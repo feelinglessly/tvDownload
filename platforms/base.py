@@ -85,14 +85,16 @@ class VideoInfo:
 
 class VideoSpider:
     """拿到视频"""
-    def __init__(self, host, first_url, addr, auto_next, max_reset=5):
+    def __init__(self, ctrl_uuid, host, first_url, addr, auto_next, max_reset=5):
         """
+        :param ctrl_uuid: 调度器uuid
         :param host: 网站域名
         :param first_url: 第一集的路由
         :param addr: 存放位置
         :param auto_next: 是否自动下载下一集
         :param max_reset: 每一集下载的最大重试次数
         """
+        self.ctrl_uuid = ctrl_uuid
         self.host = host
         self.first_url = first_url
         self.addr = addr
@@ -123,8 +125,9 @@ class Scheduler(VideoSpider):
     videos_directory = []
     auto_remove_ts = True
     cancel = False
-    def __init__(self, host, first_url, addr, auto_next, max_reset=5, max_ts_num=-1, max_thread_num=3, auto_remove_ts=True):
+    def __init__(self, ctrl_uuid, host, first_url, addr, auto_next, max_reset=5, max_ts_num=-1, max_thread_num=3, auto_remove_ts=True):
         """
+        :param ctrl_uuid: 调度器的 uuid
         :param host: 域名会验证域名和first_url是否匹配，因为不同的平台会调用不同的子类
         :param first_url: 视频网站的地址
         :param addr: 下载后存放位置，必须每一个电视剧单独存放
@@ -134,7 +137,7 @@ class Scheduler(VideoSpider):
         :param max_thread_num: ts下载的最大并发数
         :param auto_remove_ts: 是否自动删除ts文件
         """
-        super().__init__(host, first_url, addr, auto_next, max_reset)
+        super().__init__(ctrl_uuid, host, first_url, addr, auto_next, max_reset)
         self.with_downloader(M3u8Downloader(max_ts_num, max_thread_num)) # 设置默认的下载器
         self.auto_remove_ts = auto_remove_ts
 
@@ -203,7 +206,7 @@ class Scheduler(VideoSpider):
         :param run_num: 运行次数
         :return:
         """
-        print("==============================================")
+        print("==============================================", self.cancel)
         if self.cancel:
             return
         html = self.get_video_html(link, run_num)
@@ -225,7 +228,8 @@ class Scheduler(VideoSpider):
         for ts_file in ts_files:
             dt.decrypt(ts_file, ts_file)
 
-        if not done or self.cancel:
+        # if not done or self.cancel:
+        if self.cancel:
             # 没下载完或者放弃了就不合并
             return
 

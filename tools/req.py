@@ -17,7 +17,7 @@ def get(url, params=None, verify=None):
     if params is None:
         params = dict()
     return requests.get(
-        url, params=params, timeout=10,
+        url, params=params, timeout=20,
         verify=get_config().verify if verify is None else verify,
         headers={'User-Agent': get_config().common.USER_AGENT}
     )

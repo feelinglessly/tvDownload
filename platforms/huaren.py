@@ -9,7 +9,7 @@ from platforms.base import Scheduler, VideoInfo
 import ssl
 
 from tools import req
-from tools.path import path_join, url_join
+from tools.path import path_join, url_join, url_stirp_join
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -59,13 +59,14 @@ class HuaRenVideoInfo(VideoInfo):
             if not i.startswith("#") and (i.endswith("index.m3u8") or i.endswith("mixed.m3u8")):
                 index = i
         if index != "":
-            m3u8_url = url_join("/".join(url.split("/")[:-1]), index)
-            urls = url.split("/")[:-1]
-            for i in range(0, len(index.split("/")) - 1):
-                if index.split("/")[i] in urls:
-                    continue
-                m3u8_url = url_join("/".join(urls), "/".join(index.split("/")[i:]))
-                break
+            # m3u8_url = url_join("/".join(url.split("/")[:-1]), index)
+            # urls = url.split("/")[:-1]
+            # for i in range(0, len(index.split("/"))):
+            #     if index.split("/")[i] in urls:
+            #         continue
+            #     m3u8_url = url_join("/".join(urls), "/".join(index.split("/")[i:]))
+            #     break
+            m3u8_url = url_stirp_join(url, index)
         else:
             m3u8_url = url
         self.m3u8_url = m3u8_url

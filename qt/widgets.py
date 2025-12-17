@@ -22,11 +22,13 @@ class Label(QLabel):
 
 class PushButton(QPushButton):
     style = ""
+    _style = ""
     size = "small"
     map = {"small": 2, "large": 10}
     def __init__(self, label, onclick=on, style="common", size="small", *args, **kwargs):
         super().__init__(label)
         self.size = size
+        self._style = style
         self.change_style(style)
         self.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         # 设置点击回调
@@ -60,14 +62,24 @@ class PushButton(QPushButton):
                 padding: """+str(self.map[self.size])+"""px;
                 }
             """)
+        elif self.style == "info":
+            self.setStyleSheet("""
+                        QPushButton {
+                            background-color: #D3D3D3;
+                            color: black;
+                            padding: """ + str(self.map[self.size]) + """px;
+                            }
+                        """)
         else:
             pass
 
     def enable(self):
         self.setEnabled(True)
+        self.change_style(self._style)
 
     def unable(self):
         self.setEnabled(False)
+        self.change_style("info")
 
 
 class LineEdit(QLineEdit, WidgetEditValueMixIn):
