@@ -1,5 +1,6 @@
 import os
 import threading
+import time
 from urllib.parse import urlparse
 
 from decrypt.decrypt import DecryptTs
@@ -94,7 +95,7 @@ class Scheduler(VideoSpider):
         :param suffix: 匹配后缀
         :return:
         """
-
+        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5", output_name, self.cancel)
         output_name = f"{output_name}.{suffix}"
         print("合并视频：", output_name)
         if output_name in os.listdir(self.addr):
@@ -113,7 +114,6 @@ class Scheduler(VideoSpider):
         :param auto_next: 是否自动下一集
         :return:
         """
-        print("==============================================", self.cancel)
         if self.cancel:
             return
 
@@ -124,33 +124,36 @@ class Scheduler(VideoSpider):
         if m3u8_url == "":
             return
         output_name = video.get_output_name()
-        directory = self.make_directory(output_name)
+        thread = None
+        if f"{output_name}.mp4" not in os.listdir(self.addr):
+            directory = self.make_directory(output_name)
+            # 上报
+            get_store().set_nid(self.ctrl_uuid, video.video_nid)
+            # 下载剧集
+            ts_files, done, ts_key = self.downloader.m3u8_download(
+                m3u8_url,
+                directory
+            )
+            dt = DecryptTs(
+                key_b=video.get_ts_key(ts_key),
+            )
+            # 解密
+            for ts_file in ts_files:
+                dt.decrypt(ts_file, ts_file)
 
-        # 上报
-        get_store().set_nid(self.ctrl_uuid, video.video_nid)
-
-        # 下载剧集
-        ts_files, done, ts_key = self.downloader.m3u8_download(
-            m3u8_url,
-            directory
-        )
-        dt = DecryptTs(
-            key_b=video.get_ts_key(ts_key),
-        )
-        # 解密
-        for ts_file in ts_files:
-            dt.decrypt(ts_file, ts_file)
+            thread = threading.Thread(target=self.ffmpeg_merge, args=(directory, output_name), daemon=True)
         # if not done or self.cancel:
         if self.cancel:
             # 没下载完或者放弃了就不合并
             return
-        thread = threading.Thread(target=self.ffmpeg_merge, args=(directory, output_name), daemon=True)
-        thread.start()
+        if thread is not None:
+            thread.start()
         # 处理自动下载
         if auto_next:
             print("处理下集。。。。")
             self.download(video.next(), addr, auto_next)
-        thread.join()
+        if thread is not None:
+            thread.join()
 
     def run(self):
         videos = self.video_info(self.link)

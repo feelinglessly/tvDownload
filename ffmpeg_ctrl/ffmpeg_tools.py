@@ -109,9 +109,6 @@ def  merge_video_by_file(list_path, output_path):
         print(f"合并失败！错误信息：\n{e.output}")
 
 
-import subprocess
-
-
 def merge_video(inputs, output_file):
     """
     合并视频
