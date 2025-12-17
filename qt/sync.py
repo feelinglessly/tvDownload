@@ -6,7 +6,6 @@ class SyncTextEdit(TextEdit):
     def __init__(self, readonly=False):
         """
         :param readonly:
-        :param callback: 变动时回调
         """
         super().__init__(readonly)
         store = get_store()
@@ -19,14 +18,14 @@ class SyncTextEdit(TextEdit):
 
     def format_text(self, text):
         title = """
-| 平台 | 网址 | 名称 | 自动下一集 | 存放位置 | 状态 |
-|------|------|------|------|------|------|
+| 平台 | 网址 | 名称 | 自动下一集 | 存放位置 | 状态 | 当前剧级 |
+|------|------|------|------|------|------|------|
 """
         contents = []
         for i in text:
             contents.append(
                 f"| {i.platform} | {i.url_line} | {i.host_line} "
-                f"| {i.auto_next} | {i.file_dir} | {i.status} |"
+                f"| {i.auto_next} | {i.file_dir} | {i.status} | {i.nid} |"
             )
 
         return title + "\n".join(contents)

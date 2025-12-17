@@ -18,6 +18,7 @@ class VideoData(object):
     pop = 0
     status = VideoDataStatusPadding
     error = ""
+    nid = 0
 
     def __init__(self, uuid, platform, verify, auto_next, url_line, host_line, file_dir):
         self.uuid = uuid
@@ -28,6 +29,8 @@ class VideoData(object):
         self.host_line = host_line
         self.file_dir = file_dir
         self.status = VideoDataStatusInit
+
+        self.nid = 0
 
     def done(self):
         if self.status == VideoDataStatusRunning:
@@ -62,3 +65,6 @@ class VideoData(object):
         if self.status in [VideoDataStatusStop, VideoDataStatusError, VideoDataStatusInit]:
             return True
         return False
+
+    def set_nid(self, nid):
+        self.nid = nid

@@ -101,7 +101,8 @@ def  merge_video_by_file(list_path, output_path):
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,
-            encoding=system_encoding,  # 使用系统编码解码 解决 windows gbk的问题
+            # encoding=system_encoding,  # 使用系统编码解码 解决 windows gbk的问题
+            encoding="UTF-8",  # 使用系统编码解码 解决 windows gbk的问题
         )
         print("合并成功！", output_path)
     except subprocess.CalledProcessError as e:

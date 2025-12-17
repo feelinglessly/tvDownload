@@ -1,5 +1,6 @@
 class App(object):
     add_button_text = "添加"
+    clear_button_text = "清空"
     start_button_text = "开始下载"
     stop_button_text = "暂停下载"
     #

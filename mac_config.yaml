@@ -19,7 +19,7 @@ app:
   stop_button_text: 暂停下载
   #
   platform_label: 选择平台：
-  platform_radios: 海兔,华人
+  platform_radios: 海兔,华人,云影
   platform_clicked: 华人
   platform_tips: 不同选项使用不同的下载器，所以网址和平台必须对应
   #
