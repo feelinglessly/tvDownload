@@ -45,7 +45,7 @@ app:
 
   #
   max_reset: 5
-  max_ts_num: 5
+  max_ts_num: -1
   max_thread_num: 5
   auto_remove_ts: 1
 

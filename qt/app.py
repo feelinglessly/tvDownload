@@ -1,6 +1,7 @@
 import sys
 import threading
 
+from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (
     QApplication, QMainWindow, QPushButton,
     QLabel, QVBoxLayout, QWidget,
@@ -15,6 +16,7 @@ from qt.app_layout import HRadiosLayout, LineEditLayout, FileSelectLayout
 from qt.layout import HBoxLayout
 from qt.sync import SyncTextEdit
 from qt.widgets import PushButton, FileSelector, TextEdit
+from statics.api import get_file_path
 from stores.data import VideoData
 from stores.stores import get_store
 
@@ -54,6 +56,7 @@ class MainWindow(QWidget):
         conf = get_config()
 
         self.setWindowTitle(self.title)
+        self.setWindowIcon(QIcon(get_file_path("title.ico")))
         self.setGeometry(*self.size)
         self.add_button = PushButton(conf.app.add_button_text, self.on_add_clicked, "success", "large")
         self.clear_button = PushButton(conf.app.clear_button_text, self.on_clear_clicked, "warning", "large")

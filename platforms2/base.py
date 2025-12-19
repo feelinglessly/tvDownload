@@ -95,7 +95,6 @@ class Scheduler(VideoSpider):
         :param suffix: 匹配后缀
         :return:
         """
-        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5", output_name, self.cancel)
         output_name = f"{output_name}.{suffix}"
         print("合并视频：", output_name)
         if output_name in os.listdir(self.addr):
