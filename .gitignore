@@ -10,3 +10,7 @@ wather.iml
 \bin\builds\dist
 /build
 /dist
+\build
+\dist
+/bin/builds/build/main
+/bin/builds/dist/
