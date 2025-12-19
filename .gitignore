@@ -6,3 +6,7 @@ __pycache__
 \__pycache__
 misc.xml
 wather.iml
+\bin\builds\build
+\bin\builds\dist
+/bin/builds/build
+/bin/builds/dist
