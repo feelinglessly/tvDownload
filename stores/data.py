@@ -31,6 +31,7 @@ class VideoData(object):
         self.status = VideoDataStatusInit
 
         self.nid = 0
+        self.video_name = ""
 
     def done(self):
         if self.status == VideoDataStatusRunning:
@@ -68,3 +69,6 @@ class VideoData(object):
 
     def set_nid(self, nid):
         self.nid = nid
+
+    def set_video_name(self, name):
+        self.video_name = name

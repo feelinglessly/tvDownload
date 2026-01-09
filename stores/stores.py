@@ -117,6 +117,12 @@ class Store(Sync):
         self.sub()
         return data
 
+    def set_video_name(self, uuid, name):
+        data = self._store[uuid]
+        data.set_video_name(name)
+        self.sub()
+        return data
+
 
 _store = Store()
 

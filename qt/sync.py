@@ -24,8 +24,8 @@ class SyncTextEdit(TextEdit):
         contents = []
         for i in text:
             contents.append(
-                f"| {i.platform} | {i.url_line} | {i.host_line} "
-                f"| {i.auto_next} | {i.file_dir} | {i.status} | {i.nid} |"
+                f"| {i.platform} | {i.url_line} | {i.video_name} "
+                f"| {'是' if i.auto_next == 1 else '否'} | {i.file_dir} | {i.status} | {i.nid} |"
             )
 
         return title + "\n".join(contents)

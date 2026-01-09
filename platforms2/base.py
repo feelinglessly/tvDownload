@@ -118,7 +118,7 @@ class Scheduler(VideoSpider):
 
         if video is None:
             return
-
+        get_store().set_video_name(self.ctrl_uuid, video.name)
         m3u8_url = video.get_m3u8_url()
         if m3u8_url == "":
             return
