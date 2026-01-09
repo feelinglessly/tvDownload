@@ -103,6 +103,7 @@ def  merge_video_by_file(list_path, output_path):
             text=True,
             # encoding=system_encoding,  # 使用系统编码解码 解决 windows gbk的问题
             encoding="UTF-8",  # 使用系统编码解码 解决 windows gbk的问题
+            creationflags=subprocess.CREATE_NO_WINDOW # 隐藏合并视频时的窗口，在打包成exe之后有用
         )
         print("合并成功！", output_path)
     except subprocess.CalledProcessError as e:

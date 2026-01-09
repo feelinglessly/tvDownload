@@ -121,9 +121,9 @@ class MainWindow(QWidget):
         self.text()
 
     def text(self):
-        self.url_line.set_line_text("https://www.yuny.tv/videoPlayer/591212?detailId=35819")
+        self.url_line.set_line_text("https://www.yuny.tv/videoPlayer/126697997?detailId=193063")
         # self.host_line.set_line_text("https://www.ece8.com/")
-        self.file.set_line_text(r"E:\project\watch\videos\dxjz")
+        self.file.set_line_text(r"E:\project\watch\videos\mxyx")
         self._text.format_text([])
 
     def on_start_clicked(self):
