@@ -34,3 +34,10 @@ cd bin\builds
 .\build.bat
 ```
 
+### ffmpeg 下载位置
+下载之后压缩包解压之后，里边有可执行文件。直接掉就行
+- 官网
+  - https://www.ffmpeg.org/download.html
+- github
+  - windows：https://github.com/BtbN/FFmpeg-Builds/releases
+  - macOs: 目前还没下过，需要到官网在看一下 https://evermeet.cx/ffmpeg/
