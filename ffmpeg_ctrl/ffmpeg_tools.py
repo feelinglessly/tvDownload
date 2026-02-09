@@ -92,18 +92,26 @@ def  merge_video_by_file(list_path, output_path):
     #     "-strict", "experimental",
     #     output_path
     # ]
-
+    try:
+        import msvcrt
+    except ModuleNotFoundError:
+        _mswindows = False
+    else:
+        _mswindows = True
+    kwargs = {
+        "stdout": subprocess.PIPE,
+        "stderr": subprocess.STDOUT,
+        "text": True,
+        "encoding": "UTF-8",
+    }
+    if _mswindows:
+        kwargs["creationflags"] = subprocess.CREATE_NO_WINDOW
     # 运行并捕获日志
     try:
         result = subprocess.run(
             cmd,
             check=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            text=True,
-            # encoding=system_encoding,  # 使用系统编码解码 解决 windows gbk的问题
-            encoding="UTF-8",  # 使用系统编码解码 解决 windows gbk的问题
-            creationflags=subprocess.CREATE_NO_WINDOW # 隐藏合并视频时的窗口，在打包成exe之后有用
+            **kwargs,
         )
         print("合并成功！", output_path)
     except subprocess.CalledProcessError as e:

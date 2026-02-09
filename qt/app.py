@@ -1,5 +1,6 @@
 import sys
 import threading
+from urllib.parse import urlparse
 
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (
@@ -121,9 +122,9 @@ class MainWindow(QWidget):
         self.text()
 
     def text(self):
-        self.url_line.set_line_text("https://www.yuny.tv/videoPlayer/126697997?detailId=193063")
+        self.url_line.set_line_text("https://www.yuny.tv/videoPlayer/43281869?detailId=174079")
         # self.host_line.set_line_text("https://www.ece8.com/")
-        self.file.set_line_text(r"E:\project\watch\videos\mxyx")
+        self.file.set_line_text(r"/Users/zcg/Projects/output/videos/sdfb")
         self._text.format_text([])
 
     def on_start_clicked(self):
@@ -143,13 +144,17 @@ class MainWindow(QWidget):
         self.stop_button.unable()
 
     def on_add_clicked(self):
+        host_line = self.host_line.value()
+        if host_line == "":
+            component = urlparse(self.url_line.value())
+            host_line = f"{component.scheme}://{component.netloc}"
         data = VideoData(
             uuid=self.url_line.value(),
             platform=self.platform.value(),
             verify=self.verify.value(),
             auto_next=self.auto_next.value(),
             url_line=self.url_line.value(),
-            host_line=self.host_line.value(),
+            host_line=host_line,
             file_dir=self.file.value(),
         )
         store = get_store()

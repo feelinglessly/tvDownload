@@ -8,6 +8,7 @@ import requests
 from decrypt.decrypt import DecryptTs
 from download.download import M3u8Downloader
 from ffmpeg_ctrl.ffmpeg_ctrl import FfmpegVideo
+from stores.stores import get_store
 from tools import req
 from tools.path import path_join, url_join
 from urllib.parse import urlparse
@@ -212,29 +213,32 @@ class Scheduler(VideoSpider):
         html = self.get_video_html(link, run_num)
         video_info = self.video_info(html)
         output_name = video_info.get_output_name()
-        directory = self.make_directory(output_name)
-        # 下载剧集
+        get_store().set_video_name(self.ctrl_uuid, video_info.get_video_name())
+        thread = None
+        if f"{output_name}.mp4" not in os.listdir(self.addr):
+            directory = self.make_directory(output_name)
+            get_store().set_nid(self.ctrl_uuid, video_info.get_nid())
+            # 下载剧集
+            ts_files, done, ts_key = self.downloader.m3u8_download(
+                video_info.get_m3u8_url(),
+                directory
+            )
+            dt = DecryptTs(
+                key_b=video_info.get_ts_key(ts_key),
+            )
 
-        ts_files, done, ts_key = self.downloader.m3u8_download(
-            video_info.get_m3u8_url(),
-            directory
-        )
-        print("ssss", ts_files)
-        dt = DecryptTs(
-            key_b=video_info.get_ts_key(ts_key),
-        )
-
-        # 解密
-        for ts_file in ts_files:
-            dt.decrypt(ts_file, ts_file)
+            # 解密
+            for ts_file in ts_files:
+                dt.decrypt(ts_file, ts_file)
+            thread = threading.Thread(target=self.ffmpeg_merge, args=(directory, output_name), daemon=True)
 
         # if not done or self.cancel:
         if self.cancel:
             # 没下载完或者放弃了就不合并
             return
 
-        thread = threading.Thread(target=self.ffmpeg_merge, args=(directory, output_name), daemon=True)
-        thread.start()
+        if thread is not None:
+            thread.start()
         # 处理自动下载
         if auto_next:
             print("处理下集。。。。")

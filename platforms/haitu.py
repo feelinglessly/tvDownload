@@ -2,8 +2,6 @@ import json
 import pprint
 import re
 
-from bs4 import BeautifulSoup
-
 from platforms.base import Scheduler, VideoInfo
 
 import ssl

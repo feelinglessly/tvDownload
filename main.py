@@ -58,11 +58,7 @@ def new(data: VideoData):
 
 
 if __name__ == '__main__':
-    system = platform.system()
-    if system == 'Windows':
-        f = "config.yaml"
-    else:
-        f = "mac_config.yaml"
+    f = "config.yaml"
 
     file = os.path.dirname(os.path.abspath(__file__))
     init_config(file + f"{os.path.sep}{f}")
@@ -71,26 +67,5 @@ if __name__ == '__main__':
     window = MainWindow("视频下载程序", func=new)  # 创建我们自定义的主窗口实例
     window.show()
     sys.exit(app.exec())
-    # try:
-    #     system = platform.system()
-    #     if system == 'Windows':
-    #         f = "config.yaml"
-    #     else:
-    #         f = "mac_config.yaml"
-    #
-    #     file = os.path.dirname(os.path.abspath(__file__))
-    #     init_config(file+f"{os.path.sep}{f}")
-    #
-    #     app = QApplication(sys.argv)
-    #     window = MainWindow("视频下载程序", func=new)  # 创建我们自定义的主窗口实例
-    #     window.show()
-    #
-    #     sys.exit(app.exec())
-    # except Exception as e:
-    #     print(e)
-    #     input("enter your key ...")
-    # except BaseException as e:
-    #     print(e)
-    #     input("enter your key ...")
 
 

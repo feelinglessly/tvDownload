@@ -66,11 +66,10 @@ class M3u8Downloader(object):
         ts_key = ""
         sp = "\r\n" if "\r" in  ts_index.text else "\n"
         for i in ts_index.text.split(sp):
-            if "#EXT-X-KEY" in i:
+            if "#EXT-X-KEY" in i and "URI=" in i and "," in i:
                 ts_key = i.split(",")[1].split('URI="')[1][:-1]
             if not i.startswith("#") and i.endswith(".ts"):
                 ts_map[os.path.basename(i)] = self.ts_to_url(m3u8_url, i)
-
         if self.stop_event.is_set():
             # 提前终止
             return None
