@@ -15,10 +15,10 @@ from qt.app import MainWindow
 from stores.data import VideoData
 
 def new(data: VideoData):
-    print('new data', data.uuid)
+    print('new data', data.uuid, data.platform, data.host_line, data.url_line, data.platform)
     set_verify(data.verify == "是")
     config = get_config()
-    if data.platform == "华人":
+    if data.platform == "华人/猫又":
         spider = HuaRenScheduler(
             data.uuid,
             data.host_line,

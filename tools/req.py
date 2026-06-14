@@ -11,12 +11,14 @@ import ssl
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
+session = requests.Session()
+
 @call_time("req.get")
 @retry(nums=5)
 def get(url, params=None, verify=None):
     if params is None:
         params = dict()
-    return requests.get(
+    return session.get(
         url, params=params, timeout=20,
         verify=get_config().verify if verify is None else verify,
         headers={'User-Agent': get_config().common.USER_AGENT}

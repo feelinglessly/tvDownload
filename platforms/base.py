@@ -111,6 +111,11 @@ class VideoSpider:
             return
 
     def get_video_html(self, link, run_num):
+        try:
+            res1 = req.get("https://www.maoyou.tv", verify=True)
+            print(res1)
+        except Exception as e:
+            print(e)
         index_url = f"{self.host}{link}".strip()
         if run_num == 1:
             # 防止电影里的link不准确

@@ -40,9 +40,11 @@ class HuaRenVideoInfo(VideoInfo):
         """获得ts加密的密钥"""
         if self.ts_key != b'':
             return self.ts_key
-        if key_url == "":
+        if key_url != "":
             m3u8_url = self.get_m3u8_url()
             key_url = m3u8_url.replace("/".join(m3u8_url.split('/')[-2:]), "ts.key")
+        else:
+            return self.ts_key
         ts_key = req.get(key_url).content
         self.ts_key = ts_key
         return ts_key

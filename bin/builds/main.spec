@@ -2,11 +2,11 @@
 
 
 a = Analysis(
-    ['..\\..\\main.py'],
+    ['../../main.py'],
     pathex=[],
     binaries=[],
-    datas=[('E:\\project\\watch\\tvDownload\\config.yaml', '.'), ('E:\\project\\watch\\tools\\ffmpeg\\ffmpeg.exe', '.'),
-    ('E:\\project\\watch\\tools\\ffmpeg\\ffprobe.exe', '.'), ('E:\\project\\watch\\tvDownload\\statics\\title.ico', '.\\statics')],
+    datas=[('/Users/zcg/Projects/tvDownload/config.yaml', '.'), ('/Users/zcg/Projects/tools/ffmpeg/ffmpeg', '.'),
+    ('/Users/zcg/Projects/tools/ffmpeg/ffprobe', '.'), ('/Users/zcg/Projects/tvDownload/statics/title.ico', './statics')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

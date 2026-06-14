@@ -19,7 +19,7 @@ def url_join(url1, url2):
     return f"{url1}/{url2}"
 
 
-def url_stirp_join(url1, url2):
+def url_stirp_join2(url1, url2):
     """
     合并（url1+url2）两个路由地址, 去掉 url1 的最后部分，同时去重中间相同的部分
     """
@@ -30,4 +30,21 @@ def url_stirp_join(url1, url2):
         if url2.split("/")[i] in urls:
             continue
         return url_join("/".join(urls), "/".join(url2.split("/")[i:]))
+    return url_join("/".join(url1.split("/")[:-1]), url2)
+
+
+def url_stirp_join(url1, url2):
+    """
+    合并（url1+url2）两个路由地址, 去掉 url1 的最后部分，当遇到url1中不存在的url2时，拼接url2
+    """
+    if url2.startswith("http"):
+        return url2
+    urls = url1.split("/")[:-1]
+    idx = 0
+    for i in range(0, len(url2.split("/"))):
+        try:
+            j = urls.index(url2.split("/")[i])
+            idx = j
+        except ValueError:
+            return url_join("/".join(urls[:idx+1]), "/".join(url2.split("/")[i:]))
     return url_join("/".join(url1.split("/")[:-1]), url2)

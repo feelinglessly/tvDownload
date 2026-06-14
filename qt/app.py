@@ -122,9 +122,9 @@ class MainWindow(QWidget):
         self.text()
 
     def text(self):
-        self.url_line.set_line_text("https://www.yuny.tv/videoPlayer/43281869?detailId=174079")
+        self.url_line.set_line_text("https://huarw.com/play/326844-1-1")
         # self.host_line.set_line_text("https://www.ece8.com/")
-        self.file.set_line_text(r"/Users/zcg/Projects/output/videos/sdfb")
+        self.file.set_line_text(r"/Users/zcg/videos/病毒2025")
         self._text.format_text([])
 
     def on_start_clicked(self):

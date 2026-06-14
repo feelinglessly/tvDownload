@@ -7,7 +7,7 @@ from platforms2.base import Scheduler
 from platforms2.itype import Videos
 from tools import req
 from tools.nuxt import paras_nuxt_data
-from tools.path import path_join, url_join, url_stirp_join
+from tools.path import path_join, url_join, url_stirp_join, url_stirp_join2
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -68,6 +68,8 @@ class YunYVideoInfo(Videos):
         return url_stirp_join(link, string)
 
     def get_m3u8_url(self):
+        print(self.video_addr)
+        # print(self.__dict__)
         m3u8_index = req.get(self.video_addr)  # m3u8文件
         index = ""
         for i in m3u8_index.text.split("\n"):
@@ -90,7 +92,7 @@ class YunYVideoInfo(Videos):
             return self.ts_key
         key_url = ""
         if url != "":
-            key_url = url_stirp_join(self._m3u8_url, url)
+            key_url = url_stirp_join2(self._m3u8_url, url)
         ts_key = req.get(key_url).content
         self.ts_key = ts_key
         return ts_key
